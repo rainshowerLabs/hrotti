@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "hrotti"
+version = "0.1.0"
+description = "Mock an Ethereum JSON-RPC compliant HTTP/WS server"
+authors = ["Vukasin Gostovic <vukasin@gostovic.me>"]
+license = "GPLV3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
