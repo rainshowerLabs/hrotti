@@ -1,3 +1,6 @@
 venv/
+
+# pycache things
+*.pyc
 hrotti/__pycache__/
 tests/__pycache__/
