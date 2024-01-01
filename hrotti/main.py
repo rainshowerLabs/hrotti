@@ -1,6 +1,7 @@
 import json
 
 from fastapi import FastAPI, WebSocket
+
 from .methods import RPCRequest, handle_request
 
 app = FastAPI()
