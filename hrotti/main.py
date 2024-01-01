@@ -1,22 +1,14 @@
 import json
 
 from fastapi import FastAPI, WebSocket
-from pydantic import BaseModel
+from .methods import RPCRequest, handle_request
 
 app = FastAPI()
 
 
-class RPCRequest(BaseModel):
-    jsonrpc: str
-    method: str
-    params: list
-    id: int
-
-
-@app.post("/jsonrpc")
+@app.post("/http")
 async def handle_json_rpc(request: RPCRequest):
-    if request.method == "eth_blockNumber":
-        return {"jsonrpc": "2.0", "id": request.id, "result": "0x5BAD55"}
+    return handle_request(request)
 
 
 @app.websocket("/ws")
