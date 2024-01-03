@@ -10,7 +10,7 @@ class RPCRequest(BaseModel):
     id: int
 
 
-class block_info:
+class BlockInfo(BaseModel):
     head: str
     chain_id: str
     coinbase: str
@@ -72,7 +72,7 @@ transaction = {
 }
 
 
-def handle_request(request: RPCRequest, info: block_info):
+def handle_request(request: RPCRequest, info: BlockInfo):
     try:
         match request.method:
             case "eth_blockNumber":

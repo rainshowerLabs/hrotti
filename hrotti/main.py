@@ -2,11 +2,11 @@ import json
 
 from fastapi import FastAPI, WebSocket
 
-from .methods import RPCRequest, block_info, handle_request
+from .methods import RPCRequest, BlockInfo, handle_request
 
 app = FastAPI()
 
-info = block_info(
+info = BlockInfo(
     head="0x5BAD55",
     chain_id="0x1",
     coinbase="0x407d73d8a49eeb85d32cf465507dd71d507100c1",
