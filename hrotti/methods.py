@@ -10,6 +10,14 @@ class RPCRequest(BaseModel):
     id: int
 
 
+class block_info:
+    head: str
+    chain_id: str
+    coinbase: str
+    gasprice: str
+    balance: str
+
+
 def return_block(HEAD):
     return {
         "difficulty": "0x4ea3f27bc",
@@ -64,11 +72,11 @@ transaction = {
 }
 
 
-def handle_request(request: RPCRequest):
+def handle_request(request: RPCRequest, info: block_info):
     try:
         match request.method:
             case "eth_blockNumber":
-                return {"jsonrpc": "2.0", "id": request.id, "result": HEAD}
+                return {"jsonrpc": "2.0", "id": request.id, "result": info.head}
             case "eth_accounts":
                 return {
                     "jsonrpc": "2.0",
@@ -78,26 +86,26 @@ def handle_request(request: RPCRequest):
             case "eth_call":
                 return {"jsonrpc": "2.0", "id": request.id, "result": "0x0"}
             case "eth_chainId":
-                return {"jsonrpc": "2.0", "id": request.id, "result": CHAINID}
+                return {"jsonrpc": "2.0", "id": request.id, "result": info.chain_id}
             case "eth_coinbase":
-                return {"jsonrpc": "2.0", "id": request.id, "result": COINBASE}
+                return {"jsonrpc": "2.0", "id": request.id, "result": info.coinbase}
             case "eth_estimateGas":
                 return {"jsonrpc": "2.0", "id": request.id, "result": "0xffff"}
             case "eth_gasPrice":
-                return {"jsonrpc": "2.0", "id": request.id, "result": GASPRICE}
+                return {"jsonrpc": "2.0", "id": request.id, "result": info.gasprice}
             case "eth_getBalance":
-                return {"jsonrpc": "2.0", "id": request.id, "result": BALANCE}
+                return {"jsonrpc": "2.0", "id": request.id, "result": info.balance}
             case "eth_getBlockByHash":
                 return {
                     "jsonrpc": "2.0",
                     "id": request.id,
-                    "result": return_block(HEAD),
+                    "result": return_block(info.head),
                 }
             case "eth_getBlockByNumber":
                 return {
                     "jsonrpc": "2.0",
                     "id": request.id,
-                    "result": return_block(HEAD),
+                    "result": return_block(info.head),
                 }
             case "eth_getBlockTransactionCountByHash":
                 return {"jsonrpc": "2.0", "id": request.id, "result": "0x1"}
@@ -128,9 +136,17 @@ def handle_request(request: RPCRequest):
             case "eth_getTransactionReceipt":
                 return {"jsonrpc": "2.0", "id": request.id, "result": transaction}
             case "eth_getUncleByBlockHashAndIndex":
-                return {"jsonrpc": "2.0", "id": request.id, "result": return_block(HEAD)}
+                return {
+                    "jsonrpc": "2.0",
+                    "id": request.id,
+                    "result": return_block(info.head),
+                }
             case "eth_getUncleByBlockNumberAndIndex":
-                return {"jsonrpc": "2.0", "id": request.id, "result": return_block(HEAD)}
+                return {
+                    "jsonrpc": "2.0",
+                    "id": request.id,
+                    "result": return_block(info.head),
+                }
             case "eth_getUncleCountByBlockHash":
                 return {"jsonrpc": "2.0", "id": request.id, "result": "0x0"}
             case "eth_getUncleCountByBlockNumber":
@@ -142,21 +158,29 @@ def handle_request(request: RPCRequest):
             case "eth_newPendingTransactionFilter":
                 return {"jsonrpc": "2.0", "id": request.id, "result": "0x1"}
             case "eth_sendRawTransaction":
-                return {"jsonrpc": "2.0", "id": request.id, "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"}
+                return {
+                    "jsonrpc": "2.0",
+                    "id": request.id,
+                    "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331",
+                }
             case "eth_sendTransaction":
-                return {"jsonrpc": "2.0", "id": request.id, "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"}
+                return {
+                    "jsonrpc": "2.0",
+                    "id": request.id,
+                    "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331",
+                }
             case "eth_syncing":
                 return {
                     "jsonrpc": "2.0",
                     "id": request.id,
                     "result": {
-                        "currentBlock": HEAD,
+                        "currentBlock": info.head,
                         "healedBytecodeBytes": "0x0",
                         "healedBytecodes": "0x0",
                         "healedTrienodes": "0x0",
                         "healingBytecode": "0x0",
                         "healingTrienodes": "0x0",
-                        "highestBlock": HEAD,
+                        "highestBlock": info.head,
                         "startingBlock": "0x3cbed5",
                         "syncedAccountBytes": "0x0",
                         "syncedAccounts": "0x0",
