@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class RPCRequest(BaseModel):
     jsonrpc: str
     method: str
-    params: List[Any]
+    params: List[Any] = []
     id: int
 
 
@@ -39,7 +39,7 @@ def return_block(head, transaction):
         "totalDifficulty": "0x78ed983323d",
         "transactions": [transaction],
         "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-        "uncles": [],
+        "uncles": ["0x1"],
     }
 
 
@@ -74,6 +74,7 @@ transaction = {
 
 def handle_request(request: RPCRequest, info: BlockInfo):
     try:
+        print(request.method)
         match request.method:
             case "eth_blockNumber":
                 return {"jsonrpc": "2.0", "id": request.id, "result": info.head}
