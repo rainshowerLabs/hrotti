@@ -2,7 +2,8 @@ import json
 
 from fastapi import FastAPI, WebSocket
 
-from .methods import RPCRequest, BlockInfo, handle_request
+from .methods import BlockInfo, RPCRequest, handle_request
+from .websocket_manager import accept_ws_request
 
 app = FastAPI()
 
@@ -17,16 +18,11 @@ info = BlockInfo(
 
 @app.post("/http")
 async def handle_json_rpc(request: RPCRequest):
-    return handle_request(request, info)
+    return handle_request(info, request)
 
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
-        data = await websocket.receive_text()
-        try:
-            request = json.loads(data)
-            await websocket.send_text(handle_request(request.get("method"), info))
-        except json.JSONDecodeError:
-            await websocket.send_text("Error: Invalid JSON")
+        accept_ws_request(info, websocket)

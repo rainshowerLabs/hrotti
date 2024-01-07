@@ -72,7 +72,7 @@ transaction = {
 }
 
 
-def handle_request(request: RPCRequest, info: BlockInfo):
+def handle_request(info: BlockInfo, request: RPCRequest):
     try:
         print(request.method)
         match request.method:
