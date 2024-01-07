@@ -7,6 +7,11 @@ from .websocket_manager import accept_ws_request
 
 app = FastAPI()
 
+# Basic info about the block we're faking
+#
+# TODO:
+# replace this with a json or something of a real block dump
+# the goal is to be able to just dump blocks and fakecall them by index and everything
 info = BlockInfo(
     head="0x5BAD55",
     chain_id="0x1",

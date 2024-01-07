@@ -72,6 +72,8 @@ transaction = {
 }
 
 
+# Return response based off of requested method
+# TODO: replace hardcoded block values with the thing mentioned in main.py TODO
 def handle_request(info: BlockInfo, request: RPCRequest):
     print(request)
     try:
