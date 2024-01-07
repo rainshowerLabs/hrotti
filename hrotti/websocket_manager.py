@@ -2,7 +2,7 @@ import json
 
 from fastapi import WebSocket
 
-from .methods import BlockInfo, handle_request, RPCRequest
+from .methods import BlockInfo, RPCRequest, handle_request
 
 
 async def accept_ws_request(info: BlockInfo, websocket: WebSocket):
