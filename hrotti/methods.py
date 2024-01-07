@@ -73,8 +73,8 @@ transaction = {
 
 
 def handle_request(info: BlockInfo, request: RPCRequest):
+    print(request)
     try:
-        print(request.method)
         match request.method:
             case "eth_blockNumber":
                 return {"jsonrpc": "2.0", "id": request.id, "result": info.head}

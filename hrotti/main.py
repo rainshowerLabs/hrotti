@@ -25,4 +25,4 @@ async def handle_json_rpc(request: RPCRequest):
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
-        accept_ws_request(info, websocket)
+        await accept_ws_request(info, websocket)
