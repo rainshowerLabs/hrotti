@@ -52,6 +52,7 @@ async def fake_subscribe(sub_request: RPCRequest, websocket: WebSocket):
     local_conf["result"] = sub_id
 
     # send confirmation and prep our client to listen for subscriptions
+    print("1")
     await websocket.send_json(local_conf)
     
     local_fake_head = fake_new_head
@@ -62,7 +63,9 @@ async def fake_subscribe(sub_request: RPCRequest, websocket: WebSocket):
     while True:
         block_num = block_num + 1
         local_fake_head["params"]["result"]["number"] = hex(block_num)
+        print("2")
         await websocket.send_json(local_fake_head)
+        print("3")
         time.sleep(6) 
 
 
