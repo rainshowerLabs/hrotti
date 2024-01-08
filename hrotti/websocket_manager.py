@@ -43,8 +43,7 @@ fake_new_head = {
 # Fakes subscription, sends dummy data every n seconds
 async def fake_subscribe(sub_request: RPCRequest, websocket: WebSocket):
     local_conf = sub_confirmation
-    id = sub_request.id
-    local_conf["id"] = id
+    local_conf["id"] = sub_request.id
 
     # generate a random number with a int16 max and convert do hex for sub id
     sub_id = hex(random.randint(0, 32767))
