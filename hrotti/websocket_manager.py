@@ -1,6 +1,6 @@
+import asyncio
 import json
 import random
-import asyncio
 
 from fastapi import WebSocket
 
@@ -63,7 +63,6 @@ async def fake_subscribe(sub_request: RPCRequest, websocket: WebSocket):
         local_fake_head["params"]["result"]["number"] = hex(block_num)
         await websocket.send_json(local_fake_head)
         await asyncio.sleep(6)
-        break
 
 
 # Proceses WS connection
