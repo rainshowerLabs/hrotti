@@ -5,6 +5,8 @@ Hrotti is a tool for simulating fake Ethereum JSON-RPC responses, with support f
 
 If you're developing software that interacts with the Ethereum JSON-RPC API, its hard to get consistant results which makes it harder to test and debug your code. Hrotti solves this problem by always returning consistant and correct data. 
 
+*Note: Currently all Hrotti data is hardcoded. Support for custom data coming soon !*
+
 ## Example
 
 For example, say you're developing an app that querries a JSON-RPC call. For example we'll use `eth_blockNumber`. Every time you make a querry to Hrotti, it will give you the same response:
