@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Optional
 
 from pydantic import BaseModel
 
@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class RPCRequest(BaseModel):
     jsonrpc: str
     method: str
-    params: List[Any] = []
+    params: Optional[List[Any]] = None
     id: int
 
 
